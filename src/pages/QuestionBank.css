@@ -1,0 +1,190 @@
+.question-bank {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding-bottom: 50px;
+}
+
+.question-header {
+  background: white;
+  padding: 25px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.question-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.question-header p {
+  color: #6b7280;
+}
+
+.add-question-btn {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.question-form-section,
+.questions-section {
+  margin: 30px 40px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.question-form-section h2,
+.questions-section h2 {
+  margin-top: 0;
+}
+
+.question-form-section label {
+  display: block;
+  margin: 15px 0 7px;
+  font-weight: 600;
+}
+
+textarea,
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.options-section {
+  margin-top: 10px;
+}
+
+.options-section input {
+  margin-bottom: 10px;
+}
+
+.form-buttons {
+  margin-top: 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 11px 20px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.save-btn {
+  background: #16a34a;
+  color: white;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+}
+
+.questions-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.questions-title span {
+  color: #6b7280;
+}
+
+.questions-list {
+  margin-top: 20px;
+}
+
+.question-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.question-card h3 {
+  margin: 0 0 12px;
+}
+
+.question-meta {
+  display: flex;
+  gap: 10px;
+}
+
+.question-meta span {
+  padding: 5px 10px;
+  background: #f3f4f6;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.question-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background: #f59e0b;
+  color: white;
+}
+
+.delete-btn {
+  background: #dc2626;
+  color: white;
+}
+
+@media (max-width: 800px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .question-header {
+    padding: 20px;
+  }
+
+  .question-form-section,
+  .questions-section {
+    margin: 20px;
+  }
+
+  .question-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
