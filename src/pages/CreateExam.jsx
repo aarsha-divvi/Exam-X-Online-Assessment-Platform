@@ -1,5 +1,8 @@
 import { useState } from "react";
+import axios from "axios";
 import "./CreateExam.css";
+
+const API_URL = "http://localhost:5000/api/exams";
 
 function CreateExam() {
   const [exam, setExam] = useState({
@@ -16,13 +19,42 @@ function CreateExam() {
     });
   };
 
-  const handleSubmit = (e) => {
+  // Create exam and save it to MongoDB
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Exam Created:", exam);
+    try {
+      const examData = {
+        title: exam.title,
+        description: exam.description,
+        duration: Number(exam.duration),
+        numberOfQuestions: Number(exam.questions),
 
-    alert("Exam created successfully!");
+        // Faculty Test user ID
+        createdBy: "6a8009deb087e3a52e6f2856",
+      };
 
+      await axios.post(API_URL, examData);
+
+      alert("Exam created successfully!");
+
+      setExam({
+        title: "",
+        description: "",
+        duration: "",
+        questions: "",
+      });
+    } catch (error) {
+      console.error("Failed to create exam:", error);
+
+      alert(
+        error.response?.data?.message ||
+          "Failed to create exam"
+      );
+    }
+  };
+
+  const clearForm = () => {
     setExam({
       title: "",
       description: "",
@@ -43,7 +75,10 @@ function CreateExam() {
 
       <main className="create-exam-content">
 
-        <form className="exam-form" onSubmit={handleSubmit}>
+        <form
+          className="exam-form"
+          onSubmit={handleSubmit}
+        >
 
           <label>Exam Title</label>
 
@@ -100,21 +135,17 @@ function CreateExam() {
 
           <div className="exam-actions">
 
-            <button type="submit" className="create-btn">
+            <button
+              type="submit"
+              className="create-btn"
+            >
               Create Exam
             </button>
 
             <button
               type="button"
               className="cancel-btn"
-              onClick={() =>
-                setExam({
-                  title: "",
-                  description: "",
-                  duration: "",
-                  questions: "",
-                })
-              }
+              onClick={clearForm}
             >
               Clear
             </button>
