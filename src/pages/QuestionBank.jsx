@@ -1,32 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./QuestionBank.css";
 
-function QuestionBank() {
-  const [questions, setQuestions] = useState([
-    {
-      id: 1,
-      question: "What is JavaScript?",
-      type: "MCQ",
-      difficulty: "Easy",
-      topic: "JavaScript",
-    },
-    {
-      id: 2,
-      question: "Explain normalization in DBMS.",
-      type: "Descriptive",
-      difficulty: "Medium",
-      topic: "DBMS",
-    },
-    {
-      id: 3,
-      question: "Write a program to reverse a string.",
-      type: "Coding",
-      difficulty: "Hard",
-      topic: "Programming",
-    },
-  ]);
+const API_URL = "http://localhost:5000/api/questions";
 
+function QuestionBank() {
+  const [questions, setQuestions] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState(null);
 
   const [formData, setFormData] = useState({
     question: "",
@@ -37,6 +18,21 @@ function QuestionBank() {
     topic: "",
   });
 
+  // Get questions from MongoDB
+  const fetchQuestions = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setQuestions(response.data);
+    } catch (error) {
+      console.error("Failed to fetch questions:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestions();
+  }, []);
+
+  // Handle normal input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -44,6 +40,7 @@ function QuestionBank() {
     });
   };
 
+  // Handle MCQ option changes
   const handleOptionChange = (index, value) => {
     const updatedOptions = [...formData.options];
     updatedOptions[index] = value;
@@ -54,19 +51,8 @@ function QuestionBank() {
     });
   };
 
-  const addQuestion = (e) => {
-    e.preventDefault();
-
-    const newQuestion = {
-      id: Date.now(),
-      question: formData.question,
-      type: formData.type,
-      difficulty: formData.difficulty,
-      topic: formData.topic,
-    };
-
-    setQuestions([...questions, newQuestion]);
-
+  // Reset form
+  const resetForm = () => {
     setFormData({
       question: "",
       type: "MCQ",
@@ -76,17 +62,106 @@ function QuestionBank() {
       topic: "",
     });
 
+    setEditingId(null);
     setShowForm(false);
   };
 
-  const deleteQuestion = (id) => {
-    setQuestions(questions.filter((question) => question.id !== id));
+  // Edit question - load existing data into form
+  const editQuestion = (item) => {
+    setFormData({
+      question: item.question,
+      type: item.type,
+      options:
+        item.type === "MCQ"
+          ? item.options
+          : ["", "", "", ""],
+      correctAnswer:
+        item.type === "MCQ"
+          ? item.correctAnswer
+          : "",
+      difficulty: item.difficulty,
+      topic: item.topic,
+    });
+
+    setEditingId(item._id);
+    setShowForm(true);
+  };
+
+  // Add or Update question
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const questionData = {
+        question: formData.question,
+        type: formData.type,
+        options:
+          formData.type === "MCQ"
+            ? formData.options
+            : [],
+        correctAnswer:
+          formData.type === "MCQ"
+            ? formData.correctAnswer
+            : "",
+        difficulty: formData.difficulty,
+        topic: formData.topic,
+      };
+
+      if (editingId) {
+        // Update existing question
+        await axios.put(
+          `${API_URL}/${editingId}`,
+          questionData
+        );
+
+        alert("Question updated successfully!");
+      } else {
+        // Add new question
+        await axios.post(API_URL, {
+          ...questionData,
+
+          // Faculty Test user ID created earlier
+          createdBy: "6a8009deb087e3a52e6f2856",
+        });
+
+        alert("Question added successfully!");
+      }
+
+      resetForm();
+
+      // Refresh questions
+      fetchQuestions();
+
+    } catch (error) {
+      console.error("Failed to save question:", error);
+
+      alert(
+        error.response?.data?.message ||
+          "Failed to save question"
+      );
+    }
+  };
+
+  // Delete question
+  const deleteQuestion = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+
+      alert("Question deleted successfully!");
+
+      fetchQuestions();
+    } catch (error) {
+      console.error("Failed to delete question:", error);
+
+      alert("Failed to delete question");
+    }
   };
 
   return (
     <div className="question-bank">
 
       <header className="question-header">
+
         <div>
           <h1>Question Bank</h1>
           <p>Create and manage examination questions</p>
@@ -94,18 +169,29 @@ function QuestionBank() {
 
         <button
           className="add-question-btn"
-          onClick={() => setShowForm(!showForm)}
+          onClick={() => {
+            if (showForm) {
+              resetForm();
+            } else {
+              setShowForm(true);
+            }
+          }}
         >
           + Add Question
         </button>
+
       </header>
 
       {showForm && (
         <section className="question-form-section">
 
-          <h2>Add New Question</h2>
+          <h2>
+            {editingId
+              ? "Edit Question"
+              : "Add New Question"}
+          </h2>
 
-          <form onSubmit={addQuestion}>
+          <form onSubmit={handleSubmit}>
 
             <label>Question</label>
 
@@ -128,8 +214,12 @@ function QuestionBank() {
                   onChange={handleChange}
                 >
                   <option value="MCQ">MCQ</option>
-                  <option value="Descriptive">Descriptive</option>
-                  <option value="Coding">Coding</option>
+                  <option value="Descriptive">
+                    Descriptive
+                  </option>
+                  <option value="Coding">
+                    Coding
+                  </option>
                 </select>
               </div>
 
@@ -173,7 +263,10 @@ function QuestionBank() {
                     type="text"
                     value={option}
                     onChange={(e) =>
-                      handleOptionChange(index, e.target.value)
+                      handleOptionChange(
+                        index,
+                        e.target.value
+                      )
                     }
                     placeholder={`Option ${index + 1}`}
                     required
@@ -200,14 +293,19 @@ function QuestionBank() {
 
             <div className="form-buttons">
 
-              <button type="submit" className="save-btn">
-                Save Question
+              <button
+                type="submit"
+                className="save-btn"
+              >
+                {editingId
+                  ? "Update Question"
+                  : "Save Question"}
               </button>
 
               <button
                 type="button"
                 className="cancel-btn"
-                onClick={() => setShowForm(false)}
+                onClick={resetForm}
               >
                 Cancel
               </button>
@@ -222,16 +320,23 @@ function QuestionBank() {
       <section className="questions-section">
 
         <div className="questions-title">
+
           <h2>All Questions</h2>
 
-          <span>{questions.length} Questions</span>
+          <span>
+            {questions.length} Questions
+          </span>
+
         </div>
 
         <div className="questions-list">
 
           {questions.map((item) => (
 
-            <div className="question-card" key={item.id}>
+            <div
+              className="question-card"
+              key={item._id}
+            >
 
               <div className="question-info">
 
@@ -251,13 +356,18 @@ function QuestionBank() {
 
               <div className="question-actions">
 
-                <button className="edit-btn">
+                <button
+                  className="edit-btn"
+                  onClick={() => editQuestion(item)}
+                >
                   Edit
                 </button>
 
                 <button
                   className="delete-btn"
-                  onClick={() => deleteQuestion(item.id)}
+                  onClick={() =>
+                    deleteQuestion(item._id)
+                  }
                 >
                   Delete
                 </button>
