@@ -1,0 +1,10 @@
+MEMBER 5 DEPENDENCIES
+
+Backend:
+- Express (already required by main ExamX backend)
+- Node.js 18+ recommended
+
+Frontend:
+- @monaco-editor/loader
+
+No Gemini SDK is required in this handover; the backend uses Gemini's HTTPS generateContent endpoint.
