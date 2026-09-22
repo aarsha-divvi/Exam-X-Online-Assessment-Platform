@@ -1,0 +1,233 @@
+.faculty-result-details {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.result-details-header {
+  background: white;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-details-header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #1f2937;
+}
+
+.result-details-header p {
+  margin: 5px 0 0;
+  color: #6b7280;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.result-details-content {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 25px 0;
+}
+
+/* =========================
+   RESULT CARDS
+========================= */
+
+.result-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.result-card h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  color: #1f2937;
+}
+
+/* =========================
+   INFORMATION
+========================= */
+
+.result-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.result-info-grid > div {
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 6px;
+}
+
+.result-info-grid strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #374151;
+  font-size: 14px;
+}
+
+.result-info-grid p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* =========================
+   RESULT SUMMARY
+========================= */
+
+.result-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.summary-card {
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  background: #f9fafb;
+}
+
+.summary-card h3 {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.summary-card p {
+  margin: 7px 0 0;
+  font-size: 23px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* =========================
+   SUBMITTED INFORMATION
+========================= */
+
+.submitted-info {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 120px;
+  height: 36px;
+
+  box-sizing: border-box;
+
+  background: #2563eb;
+  color: white;
+
+  text-decoration: none;
+  border-radius: 6px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.back-btn:hover {
+  background: #1d4ed8;
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.result-error {
+  padding: 12px 14px;
+  margin-bottom: 20px;
+
+  background: #fee2e2;
+  color: #b91c1c;
+
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+}
+
+/* =========================
+   LOADING / EMPTY
+========================= */
+
+.result-details-message {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  text-align: center;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 800px) {
+
+  .result-details-header {
+    padding: 18px 20px;
+  }
+
+  .result-details-content {
+    width: 92%;
+    padding: 20px 0;
+  }
+
+  .result-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .result-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+  .result-details-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .result-info-grid,
+  .result-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-card {
+    padding: 15px;
+  }
+
+  .back-btn {
+    width: 110px;
+  }
+}

@@ -1,0 +1,163 @@
+.faculty-results {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.faculty-results-header {
+  background: white;
+  padding: 25px 35px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.faculty-results-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #1f2937;
+}
+
+.faculty-results-header p {
+  margin-top: 6px;
+  color: #6b7280;
+}
+
+.faculty-results-content {
+  padding: 30px 35px;
+}
+
+.results-filter {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.results-filter label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.results-filter select {
+  width: 100%;
+  max-width: 500px;
+  padding: 11px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.performance-section {
+  margin-bottom: 30px;
+}
+
+.performance-section h2,
+.student-results h2 {
+  margin-bottom: 15px;
+  color: #1f2937;
+}
+
+.performance-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.performance-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.performance-card h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.performance-card p {
+  margin: 10px 0 0;
+  font-size: 25px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.student-results {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.results-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.results-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1050px;
+}
+
+.results-table-container th,
+.results-table-container td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.results-table-container th {
+  font-weight: 600;
+  background: #f9fafb;
+  color: #1f2937;
+}
+
+.results-table-container td {
+  color: #374151;
+}
+
+.view-result-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.view-result-btn:hover {
+  opacity: 0.9;
+}
+
+.error-message {
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+@media (max-width: 1000px) {
+  .performance-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .faculty-results-header {
+    padding: 20px;
+  }
+
+  .faculty-results-content {
+    padding: 20px;
+  }
+
+  .performance-grid {
+    grid-template-columns: 1fr;
+  }
+}

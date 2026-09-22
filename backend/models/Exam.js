@@ -32,6 +32,14 @@ const examSchema = new mongoose.Schema(
       required: true,
     },
 
+    // Questions included in this exam
+    questions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question",
+      },
+    ],
+
     // Scheduling details
     scheduledDate: {
       type: String,
@@ -50,7 +58,7 @@ const examSchema = new mongoose.Schema(
 
     scheduleStatus: {
       type: String,
-      enum: ["Not Scheduled", "Scheduled"],
+      enum: ["Not Scheduled", "Scheduled", "Published"],
       default: "Not Scheduled",
     },
   },
