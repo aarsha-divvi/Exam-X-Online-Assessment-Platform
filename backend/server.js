@@ -8,7 +8,7 @@ const protectedRoutes = require("./routes/protectedRoutes");
 const questionRoutes = require("./routes/questionRoutes");
 const examRoutes = require("./routes/examRoutes");
 const submissionRoutes = require("./routes/submissionRoutes");
-
+const resultRoutes = require("./routes/resultRoutes");
 dotenv.config();
 
 const app = express();
@@ -26,6 +26,7 @@ app.use("/api/protected", protectedRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/exams", examRoutes);
 app.use("/api/submissions", submissionRoutes);
+app.use("/api/results", resultRoutes);
 
 // Test route
 app.get("/", (req, res) => {
