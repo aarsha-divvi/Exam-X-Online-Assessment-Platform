@@ -5,7 +5,6 @@
   color: #1f2937;
 }
 
-
 /* ============================= */
 /* SIDEBAR */
 /* ============================= */
@@ -20,7 +19,6 @@
   flex-shrink: 0;
 }
 
-
 .sidebar-brand {
   height: 75px;
   padding: 0 20px;
@@ -29,7 +27,6 @@
   gap: 12px;
   border-bottom: 1px solid #1e293b;
 }
-
 
 .brand-icon {
   width: 38px;
@@ -42,13 +39,11 @@
   font-size: 20px;
 }
 
-
 .sidebar-brand h2 {
   margin: 0;
   font-size: 19px;
   font-weight: 700;
 }
-
 
 .sidebar-brand span {
   display: block;
@@ -57,12 +52,10 @@
   color: #94a3b8;
 }
 
-
 .sidebar-menu {
   padding: 25px 12px;
   flex: 1;
 }
-
 
 .menu-title {
   margin: 0 12px 12px;
@@ -71,7 +64,6 @@
   color: #64748b;
   letter-spacing: 0.8px;
 }
-
 
 .sidebar-link {
   display: flex;
@@ -88,18 +80,15 @@
   transition: 0.2s;
 }
 
-
 .sidebar-link:hover {
   background: #1e293b;
   color: white;
 }
 
-
 .sidebar-link.active {
   background: #2563eb;
   color: white;
 }
-
 
 .sidebar-icon {
   width: 20px;
@@ -107,12 +96,10 @@
   font-size: 16px;
 }
 
-
 .sidebar-bottom {
   padding: 15px 12px;
   border-top: 1px solid #1e293b;
 }
-
 
 .sidebar-logout {
   width: 100%;
@@ -129,12 +116,10 @@
   font-size: 13px;
 }
 
-
 .sidebar-logout:hover {
   background: #1e293b;
   color: white;
 }
-
 
 /* ============================= */
 /* MAIN AREA */
@@ -144,7 +129,6 @@
   flex: 1;
   min-width: 0;
 }
-
 
 /* ============================= */
 /* TOP BAR */
@@ -160,13 +144,11 @@
   padding: 0 28px;
 }
 
-
 .topbar-title h1 {
   margin: 0;
   font-size: 20px;
   color: #1e293b;
 }
-
 
 .topbar-title p {
   margin: 4px 0 0;
@@ -174,13 +156,11 @@
   color: #94a3b8;
 }
 
-
 .topbar-right {
   display: flex;
   align-items: center;
   gap: 18px;
 }
-
 
 .search-box {
   width: 190px;
@@ -194,12 +174,10 @@
   padding: 0 10px;
 }
 
-
 .search-box span {
   color: #94a3b8;
   font-size: 19px;
 }
-
 
 .search-box input {
   width: 100%;
@@ -210,11 +188,9 @@
   color: #334155;
 }
 
-
 .search-box input::placeholder {
   color: #94a3b8;
 }
-
 
 .notification-btn {
   position: relative;
@@ -227,7 +203,6 @@
   font-size: 19px;
 }
 
-
 .notification-dot {
   position: absolute;
   top: 5px;
@@ -238,13 +213,11 @@
   border-radius: 50%;
 }
 
-
 .faculty-profile {
   display: flex;
   align-items: center;
   gap: 9px;
 }
-
 
 .profile-icon {
   width: 35px;
@@ -258,13 +231,11 @@
   font-weight: 700;
 }
 
-
 .profile-details strong {
   display: block;
   font-size: 12px;
   color: #334155;
 }
-
 
 .profile-details span {
   display: block;
@@ -272,7 +243,6 @@
   font-size: 10px;
   color: #94a3b8;
 }
-
 
 /* ============================= */
 /* CONTENT */
@@ -284,11 +254,9 @@
   margin: 0 auto;
 }
 
-
 .welcome-section {
   margin-bottom: 20px;
 }
-
 
 .welcome-section h2 {
   margin: 0;
@@ -296,13 +264,11 @@
   color: #1e293b;
 }
 
-
 .welcome-section p {
   margin: 5px 0 0;
   color: #64748b;
   font-size: 13px;
 }
-
 
 .dashboard-error {
   background: #fee2e2;
@@ -314,7 +280,6 @@
   font-size: 13px;
 }
 
-
 /* ============================= */
 /* STATISTICS */
 /* ============================= */
@@ -324,7 +289,6 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
-
 
 .stat-card {
   background: white;
@@ -337,11 +301,9 @@
   min-height: 105px;
 }
 
-
 .stat-content {
   min-width: 0;
 }
-
 
 .stat-label {
   display: block;
@@ -350,7 +312,6 @@
   margin-bottom: 7px;
 }
 
-
 .stat-value {
   display: block;
   font-size: 27px;
@@ -358,14 +319,12 @@
   color: #1e293b;
 }
 
-
 .stat-subtext {
   display: block;
   margin-top: 7px;
   font-size: 10px;
   color: #94a3b8;
 }
-
 
 .stat-icon {
   width: 42px;
@@ -378,13 +337,11 @@
   flex-shrink: 0;
 }
 
-
 .stat-icon.blue,
 .quick-action-icon.blue {
   background: #dbeafe;
   color: #2563eb;
 }
-
 
 .stat-icon.purple,
 .quick-action-icon.purple {
@@ -392,20 +349,17 @@
   color: #7c3aed;
 }
 
-
 .stat-icon.green,
 .quick-action-icon.green {
   background: #dcfce7;
   color: #16a34a;
 }
 
-
 .stat-icon.orange,
 .quick-action-icon.orange {
   background: #ffedd5;
   color: #ea580c;
 }
-
 
 /* ============================= */
 /* MAIN DASHBOARD CARDS */
@@ -418,14 +372,12 @@
   margin-top: 20px;
 }
 
-
 .dashboard-card {
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 9px;
   overflow: hidden;
 }
-
 
 .card-header {
   padding: 18px 20px;
@@ -435,20 +387,17 @@
   border-bottom: 1px solid #e2e8f0;
 }
 
-
 .card-header h2 {
   margin: 0;
   font-size: 15px;
   color: #1e293b;
 }
 
-
 .card-header p {
   margin: 4px 0 0;
   font-size: 11px;
   color: #94a3b8;
 }
-
 
 .view-all-link {
   color: #2563eb;
@@ -457,11 +406,9 @@
   font-weight: 600;
 }
 
-
 .view-all-link:hover {
   text-decoration: underline;
 }
-
 
 /* ============================= */
 /* UPCOMING EXAMS */
@@ -470,7 +417,6 @@
 .exam-list {
   padding: 0;
 }
-
 
 .exam-list-item {
   min-height: 70px;
@@ -481,11 +427,9 @@
   border-bottom: 1px solid #f1f5f9;
 }
 
-
 .exam-list-item:last-child {
   border-bottom: none;
 }
-
 
 .exam-item-icon {
   width: 34px;
@@ -499,12 +443,10 @@
   justify-content: center;
 }
 
-
 .exam-item-details {
   flex: 1;
   min-width: 0;
 }
-
 
 .exam-item-details strong {
   display: block;
@@ -515,14 +457,12 @@
   text-overflow: ellipsis;
 }
 
-
 .exam-item-details span {
   display: block;
   margin-top: 4px;
   color: #94a3b8;
   font-size: 10px;
 }
-
 
 .exam-status {
   padding: 5px 9px;
@@ -532,18 +472,15 @@
   white-space: nowrap;
 }
 
-
 .exam-status.scheduled {
   background: #dcfce7;
   color: #15803d;
 }
 
-
 .exam-status.published {
   background: #dbeafe;
   color: #1d4ed8;
 }
-
 
 .empty-state {
   min-height: 170px;
@@ -555,17 +492,14 @@
   font-size: 12px;
 }
 
-
 .empty-state span {
   font-size: 25px;
   margin-bottom: 7px;
 }
 
-
 .empty-state p {
   margin: 0;
 }
-
 
 /* ============================= */
 /* EXAM SUMMARY */
@@ -575,11 +509,9 @@
   padding-bottom: 10px;
 }
 
-
 .summary-item {
   padding: 13px 20px 7px;
 }
-
 
 .summary-label {
   display: flex;
@@ -588,18 +520,15 @@
   margin-bottom: 7px;
 }
 
-
 .summary-label span {
   color: #64748b;
   font-size: 11px;
 }
 
-
 .summary-label strong {
   color: #334155;
   font-size: 11px;
 }
-
 
 .summary-bar {
   width: 100%;
@@ -609,32 +538,26 @@
   overflow: hidden;
 }
 
-
 .summary-fill {
   height: 100%;
   border-radius: 10px;
 }
 
-
 .blue-fill {
   background: #2563eb;
 }
-
 
 .green-fill {
   background: #22c55e;
 }
 
-
 .purple-fill {
   background: #a855f7;
 }
 
-
 .orange-fill {
   background: #f97316;
 }
-
 
 /* ============================= */
 /* QUICK ACTIONS */
@@ -644,11 +567,9 @@
   margin-top: 20px;
 }
 
-
 .section-heading {
   margin-bottom: 12px;
 }
-
 
 .section-heading h2 {
   margin: 0;
@@ -656,20 +577,17 @@
   color: #1e293b;
 }
 
-
 .section-heading p {
   margin: 4px 0 0;
   font-size: 11px;
   color: #94a3b8;
 }
 
-
 .quick-actions-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
-
 
 .quick-action-card {
   background: white;
@@ -684,13 +602,11 @@
   transition: 0.2s;
 }
 
-
 .quick-action-card:hover {
   border-color: #bfdbfe;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
 }
-
 
 .quick-action-icon {
   width: 40px;
@@ -703,13 +619,11 @@
   font-size: 18px;
 }
 
-
 .quick-action-card h3 {
   margin: 0;
   font-size: 12px;
   color: #334155;
 }
-
 
 .quick-action-card p {
   margin: 4px 0 0;
@@ -717,13 +631,11 @@
   color: #94a3b8;
 }
 
-
 /* ============================= */
 /* RESPONSIVE */
 /* ============================= */
 
 @media (max-width: 1100px) {
-
   .faculty-sidebar {
     width: 210px;
   }
@@ -739,12 +651,9 @@
   .dashboard-main-grid {
     grid-template-columns: 1fr;
   }
-
 }
 
-
 @media (max-width: 800px) {
-
   .faculty-sidebar {
     width: 70px;
   }
@@ -774,10 +683,6 @@
     padding: 0;
   }
 
-  .sidebar-logout span:last-child {
-    display: none;
-  }
-
   .faculty-topbar {
     padding: 0 18px;
   }
@@ -789,12 +694,9 @@
   .faculty-content {
     padding: 20px;
   }
-
 }
 
-
 @media (max-width: 600px) {
-
   .faculty-dashboard {
     display: block;
   }
@@ -878,5 +780,4 @@
   .dashboard-main-grid {
     grid-template-columns: 1fr;
   }
-
 }
