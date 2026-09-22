@@ -5,12 +5,15 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const protectedRoutes = require("./routes/protectedRoutes");
+const questionRoutes = require("./routes/questionRoutes");
+const examRoutes = require("./routes/examRoutes");
+const submissionRoutes = require("./routes/submissionRoutes");
 
 dotenv.config();
 
 const app = express();
 
-// Connect Database
+// Connect to MongoDB
 connectDB();
 
 // Middleware
@@ -20,8 +23,11 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/protected", protectedRoutes);
+app.use("/api/questions", questionRoutes);
+app.use("/api/exams", examRoutes);
+app.use("/api/submissions", submissionRoutes);
 
-// Test Route
+// Test route
 app.get("/", (req, res) => {
   res.send("ExamX Backend Running...");
 });
