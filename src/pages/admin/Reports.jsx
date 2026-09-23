@@ -14,6 +14,9 @@ import {
   Legend,
 } from "recharts";
 
+import AdminSidebar from "../../components/AdminSidebar";
+import AdminNavbar from "../../components/AdminNavbar";
+
 function Reports() {
   const [reports, setReports] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -44,6 +47,7 @@ function Reports() {
 
       setReports(data);
     } catch (error) {
+      console.error(error);
       alert("Cannot connect to backend");
     } finally {
       setLoading(false);
@@ -52,8 +56,8 @@ function Reports() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 p-8">
-        <h1 className="text-2xl font-bold">
+      <div className="min-h-screen bg-slate-100 p-8">
+        <h1 className="text-2xl font-bold text-slate-800">
           Loading Reports...
         </h1>
       </div>
@@ -62,664 +66,360 @@ function Reports() {
 
   if (!reports) {
     return (
-      <div className="min-h-screen bg-gray-100 p-8">
-        <h1 className="text-2xl font-bold">
+      <div className="min-h-screen bg-slate-100 p-8">
+        <h1 className="text-2xl font-bold text-slate-800">
           Reports
         </h1>
 
-        <p className="mt-2 text-gray-500">
+        <p className="mt-2 text-slate-500">
           Unable to load report data.
         </p>
       </div>
     );
   }
 
-  const {
-    stats,
-    users,
-    exams,
-    results,
-    participation,
-  } = reports;
+  const { stats, users, exams, results, participation } = reports;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 md:p-8">
+    <div className="min-h-screen bg-slate-100">
 
-      {/* HEADER */}
+      <AdminSidebar />
 
-      <div className="mb-8">
+      <div className="ml-0 md:ml-64">
 
-        <h1 className="text-3xl font-bold text-gray-800">
-          Advanced Admin Reports
-        </h1>
+        <AdminNavbar />
 
-        <p className="mt-1 text-gray-500">
-          Analyze users, exams, participation and performance
-        </p>
+        <main className="p-4 sm:p-6 lg:p-8">
 
-      </div>
+          {/* PAGE HEADING */}
 
-      {/* MAIN STATISTICS */}
+          <div className="mb-8">
 
-      <div className="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <h1 className="text-2xl font-bold text-slate-800 sm:text-3xl">
+              Reports & Analytics
+            </h1>
 
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <p className="text-gray-500">
-            Total Users
-          </p>
-
-          <h2 className="mt-2 text-3xl font-bold">
-            {stats.totalUsers}
-          </h2>
-
-          <p className="mt-2 text-sm text-blue-600">
-            {stats.totalStudents} students
-          </p>
-
-        </div>
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <p className="text-gray-500">
-            Total Exams
-          </p>
-
-          <h2 className="mt-2 text-3xl font-bold">
-            {stats.totalExams}
-          </h2>
-
-          <p className="mt-2 text-sm text-green-600">
-            {stats.activeExams} active
-          </p>
-
-        </div>
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <p className="text-gray-500">
-            Average Score
-          </p>
-
-          <h2 className="mt-2 text-3xl font-bold">
-            {stats.averageScore}%
-          </h2>
-
-          <p className="mt-2 text-sm text-gray-500">
-            Across completed exams
-          </p>
-
-        </div>
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <p className="text-gray-500">
-            Pass Rate
-          </p>
-
-          <h2 className="mt-2 text-3xl font-bold">
-            {stats.passRate}%
-          </h2>
-
-          <p className="mt-2 text-sm text-green-600">
-            {stats.passed} passed
-          </p>
-
-        </div>
-
-      </div>
-
-      {/* CHARTS */}
-
-      <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
-
-        {/* USER DISTRIBUTION */}
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <h2 className="text-xl font-bold text-gray-800">
-            User Distribution
-          </h2>
-
-          <p className="mt-1 text-sm text-gray-500">
-            Users grouped by role
-          </p>
-
-          {users.roleData.length === 0 ? (
-
-            <div className="flex h-72 items-center justify-center text-gray-500">
-              No user data available.
-            </div>
-
-          ) : (
-
-            <div className="mt-4 h-72">
-
-              <ResponsiveContainer
-                width="100%"
-                height="100%"
-              >
-
-                <BarChart data={users.roleData}>
-
-                  <CartesianGrid strokeDasharray="3 3" />
-
-                  <XAxis dataKey="role" />
-
-                  <YAxis allowDecimals={false} />
-
-                  <Tooltip />
-
-                  <Bar
-                    dataKey="count"
-                    name="Users"
-                    fill="#2563eb"
-                    radius={[6, 6, 0, 0]}
-                  />
-
-                </BarChart>
-
-              </ResponsiveContainer>
-
-            </div>
-
-          )}
-
-        </div>
-
-        {/* EXAM STATUS */}
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <h2 className="text-xl font-bold text-gray-800">
-            Exam Status
-          </h2>
-
-          <p className="mt-1 text-sm text-gray-500">
-            Current status of all exams
-          </p>
-
-          {exams.statusData.length === 0 ? (
-
-            <div className="flex h-72 items-center justify-center text-gray-500">
-              No exam data available.
-            </div>
-
-          ) : (
-
-            <div className="mt-4 h-72">
-
-              <ResponsiveContainer
-                width="100%"
-                height="100%"
-              >
-
-                <BarChart data={exams.statusData}>
-
-                  <CartesianGrid strokeDasharray="3 3" />
-
-                  <XAxis dataKey="status" />
-
-                  <YAxis allowDecimals={false} />
-
-                  <Tooltip />
-
-                  <Bar
-                    dataKey="count"
-                    name="Exams"
-                    fill="#7c3aed"
-                    radius={[6, 6, 0, 0]}
-                  />
-
-                </BarChart>
-
-              </ResponsiveContainer>
-
-            </div>
-
-          )}
-
-        </div>
-
-        {/* RESULT CHART */}
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <h2 className="text-xl font-bold text-gray-800">
-            Result Distribution
-          </h2>
-
-          <p className="mt-1 text-sm text-gray-500">
-            Passed and failed results
-          </p>
-
-          {results.resultData.length === 0 ||
-          results.passed + results.failed === 0 ? (
-
-            <div className="flex h-72 items-center justify-center text-gray-500">
-              No result data available.
-            </div>
-
-          ) : (
-
-            <div className="mt-4 h-72">
-
-              <ResponsiveContainer
-                width="100%"
-                height="100%"
-              >
-
-                <PieChart>
-
-                  <Pie
-                    data={results.resultData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={90}
-                    label
-                  >
-
-                    {results.resultData.map(
-                      (entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={
-                            entry.name === "Passed"
-                              ? "#16a34a"
-                              : "#ef4444"
-                          }
-                        />
-                      )
-                    )}
-
-                  </Pie>
-
-                  <Tooltip />
-
-                  <Legend />
-
-                </PieChart>
-
-              </ResponsiveContainer>
-
-            </div>
-
-          )}
-
-        </div>
-
-        {/* PARTICIPATION CHART */}
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <h2 className="text-xl font-bold text-gray-800">
-            Exam Participation
-          </h2>
-
-          <p className="mt-1 text-sm text-gray-500">
-            Students completing each exam
-          </p>
-
-          {participation.length === 0 ? (
-
-            <div className="flex h-72 items-center justify-center text-gray-500">
-              No participation data available.
-            </div>
-
-          ) : (
-
-            <div className="mt-4 h-72">
-
-              <ResponsiveContainer
-                width="100%"
-                height="100%"
-              >
-
-                <BarChart data={participation}>
-
-                  <CartesianGrid strokeDasharray="3 3" />
-
-                  <XAxis
-                    dataKey="exam"
-                    tick={{ fontSize: 12 }}
-                  />
-
-                  <YAxis allowDecimals={false} />
-
-                  <Tooltip />
-
-                  <Bar
-                    dataKey="participants"
-                    name="Participants"
-                    fill="#ea580c"
-                    radius={[6, 6, 0, 0]}
-                  />
-
-                </BarChart>
-
-              </ResponsiveContainer>
-
-            </div>
-
-          )}
-
-        </div>
-
-      </div>
-
-      {/* USER STATISTICS */}
-
-      <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <h2 className="mb-6 text-xl font-bold text-gray-800">
-            User Statistics
-          </h2>
-
-          <div className="space-y-5">
-
-            {users.roleData.map((item) => {
-
-              const percentage =
-                stats.totalUsers > 0
-                  ? Math.round(
-                      (item.count /
-                        stats.totalUsers) *
-                        100
-                    )
-                  : 0;
-
-              return (
-                <div key={item.role}>
-
-                  <div className="mb-2 flex justify-between">
-
-                    <span className="font-medium">
-                      {item.role}
-                    </span>
-
-                    <span className="text-gray-500">
-                      {item.count}
-                    </span>
-
-                  </div>
-
-                  <div className="h-3 w-full rounded-full bg-gray-200">
-
-                    <div
-                      className="h-3 rounded-full bg-blue-600"
-                      style={{
-                        width: `${percentage}%`,
-                      }}
-                    />
-
-                  </div>
-
-                </div>
-              );
-            })}
-
-          </div>
-
-        </div>
-
-        {/* RESULT STATISTICS */}
-
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-
-          <h2 className="mb-6 text-xl font-bold text-gray-800">
-            Result Statistics
-          </h2>
-
-          <div className="grid grid-cols-2 gap-5">
-
-            <div className="rounded-xl border p-5">
-
-              <p className="text-gray-500">
-                Passed
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-green-600">
-                {results.passed}
-              </h3>
-
-            </div>
-
-            <div className="rounded-xl border p-5">
-
-              <p className="text-gray-500">
-                Failed
-              </p>
-
-              <h3 className="mt-2 text-3xl font-bold text-red-500">
-                {results.failed}
-              </h3>
-
-            </div>
-
-          </div>
-
-          <div className="mt-6">
-
-            <div className="mb-2 flex justify-between text-sm">
-
-              <span>
-                Pass Rate
-              </span>
-
-              <span>
-                {stats.passRate}%
-              </span>
-
-            </div>
-
-            <div className="h-4 w-full rounded-full bg-gray-200">
-
-              <div
-                className="h-4 rounded-full bg-green-500"
-                style={{
-                  width: `${stats.passRate}%`,
-                }}
-              />
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* EXAM MONITORING */}
-
-      <div className="mb-8 rounded-xl bg-white p-6 shadow-sm">
-
-        <div className="mb-6 flex items-center justify-between">
-
-          <div>
-
-            <h2 className="text-xl font-bold text-gray-800">
-              Exam Monitoring
-            </h2>
-
-            <p className="mt-1 text-sm text-gray-500">
-              Current exam status across the platform
+            <p className="mt-1 text-sm text-slate-500">
+              Monitor platform users, exams, results and participation.
             </p>
 
           </div>
 
-          <div className="text-sm text-gray-500">
-            {stats.totalExams} total exams
-          </div>
+          {/* MAIN STATISTICS */}
 
-        </div>
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
-          {exams.statusData.map((item) => (
-
-            <div
-              key={item.status}
-              className="rounded-xl border p-5"
-            >
-
-              <p className="text-gray-500">
-                {item.status}
+              <p className="text-sm text-slate-500">
+                Total Users
               </p>
 
-              <h3 className="mt-2 text-3xl font-bold">
-                {item.count}
-              </h3>
+              <h2 className="mt-2 text-3xl font-bold text-slate-800">
+                {stats.totalUsers}
+              </h2>
+
+              <p className="mt-1 text-xs text-slate-400">
+                All registered accounts
+              </p>
 
             </div>
 
-          ))}
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
-        </div>
+              <p className="text-sm text-slate-500">
+                Total Exams
+              </p>
 
-      </div>
+              <h2 className="mt-2 text-3xl font-bold text-slate-800">
+                {stats.totalExams}
+              </h2>
 
-      {/* EXAM PERFORMANCE */}
+              <p className="mt-1 text-xs text-slate-400">
+                Created exams
+              </p>
 
-      <div className="mb-8 rounded-xl bg-white p-6 shadow-sm">
+            </div>
 
-        <h2 className="mb-2 text-xl font-bold text-gray-800">
-          Exam Performance
-        </h2>
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
-        <p className="mb-6 text-sm text-gray-500">
-          Participation and average performance for each exam
-        </p>
+              <p className="text-sm text-slate-500">
+                Average Score
+              </p>
 
-        {exams.examData.length === 0 ? (
+              <h2 className="mt-2 text-3xl font-bold text-blue-600">
+                {stats.averageScore}%
+              </h2>
 
-          <div className="py-10 text-center text-gray-500">
-            No exam data available yet.
+              <p className="mt-1 text-xs text-slate-400">
+                Across completed exams
+              </p>
+
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+
+              <p className="text-sm text-slate-500">
+                Pass Rate
+              </p>
+
+              <h2 className="mt-2 text-3xl font-bold text-green-600">
+                {stats.passRate}%
+              </h2>
+
+              <p className="mt-1 text-xs text-slate-400">
+                Completed submissions
+              </p>
+
+            </div>
+
           </div>
 
-        ) : (
+          {/* USER + EXAM CHARTS */}
 
-          <div className="overflow-x-auto">
+          <div className="mt-8 grid gap-6 xl:grid-cols-2">
 
-            <table className="w-full text-left">
+            {/* USER DISTRIBUTION */}
 
-              <thead>
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
 
-                <tr className="border-b">
+              <h2 className="text-lg font-semibold text-slate-800">
+                User Distribution
+              </h2>
 
-                  <th className="p-3">
-                    Exam
-                  </th>
+              <p className="mt-1 text-sm text-slate-500">
+                Number of users by role
+              </p>
 
-                  <th className="p-3">
-                    Status
-                  </th>
+              <div className="mt-6 h-64 sm:h-80">
 
-                  <th className="p-3">
-                    Participants
-                  </th>
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                >
+                  <BarChart data={users.roleData}>
 
-                  <th className="p-3">
-                    Average Score
-                  </th>
+                    <CartesianGrid strokeDasharray="3 3" />
 
-                </tr>
+                    <XAxis dataKey="role" />
 
-              </thead>
+                    <YAxis allowDecimals={false} />
 
-              <tbody>
+                    <Tooltip />
 
-                {exams.examData.map((exam) => (
+                    <Bar
+                      dataKey="count"
+                      fill="#2563eb"
+                      radius={[6, 6, 0, 0]}
+                    />
 
-                  <tr
-                    key={String(exam.id)}
-                    className="border-b hover:bg-gray-50"
+                  </BarChart>
+                </ResponsiveContainer>
+
+              </div>
+
+            </div>
+
+            {/* EXAM STATUS */}
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+
+              <h2 className="text-lg font-semibold text-slate-800">
+                Exam Status
+              </h2>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Current status of all exams
+              </p>
+
+              <div className="mt-6 h-64 sm:h-80">
+
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                >
+                  <BarChart data={exams.statusData}>
+
+                    <CartesianGrid strokeDasharray="3 3" />
+
+                    <XAxis dataKey="status" />
+
+                    <YAxis allowDecimals={false} />
+
+                    <Tooltip />
+
+                    <Bar
+                      dataKey="count"
+                      fill="#7c3aed"
+                      radius={[6, 6, 0, 0]}
+                    />
+
+                  </BarChart>
+                </ResponsiveContainer>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* RESULT + PARTICIPATION */}
+
+          <div className="mt-6 grid gap-6 xl:grid-cols-2">
+
+            {/* RESULT DISTRIBUTION */}
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+
+              <h2 className="text-lg font-semibold text-slate-800">
+                Result Distribution
+              </h2>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Passed and failed submissions
+              </p>
+
+              <div className="mt-4 h-64 sm:h-80">
+
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                >
+                  <PieChart>
+
+                    <Pie
+                      data={results.resultData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius="70%"
+                      label
+                    >
+                      {results.resultData.map(
+                        (entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={
+                              index === 0
+                                ? "#22c55e"
+                                : "#ef4444"
+                            }
+                          />
+                        )
+                      )}
+                    </Pie>
+
+                    <Tooltip />
+
+                    <Legend />
+
+                  </PieChart>
+                </ResponsiveContainer>
+
+              </div>
+
+            </div>
+
+            {/* PARTICIPATION */}
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+
+              <h2 className="text-lg font-semibold text-slate-800">
+                Exam Participation
+              </h2>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Students participating in each exam
+              </p>
+
+              <div className="mt-6 h-64 sm:h-80">
+
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                >
+                  <BarChart
+                    data={participation}
+                    margin={{
+                      top: 10,
+                      right: 10,
+                      left: 0,
+                      bottom: 10,
+                    }}
                   >
 
-                    <td className="p-3 font-medium">
-                      {exam.title}
-                    </td>
+                    <CartesianGrid strokeDasharray="3 3" />
 
-                    <td className="p-3">
+                    <XAxis
+                      dataKey="exam"
+                      interval={0}
+                      angle={-20}
+                      textAnchor="end"
+                      height={70}
+                    />
 
-                      <span className="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700">
-                        {exam.status}
-                      </span>
+                    <YAxis allowDecimals={false} />
 
-                    </td>
+                    <Tooltip />
 
-                    <td className="p-3">
-                      {exam.participants}
-                    </td>
+                    <Bar
+                      dataKey="participants"
+                      fill="#f97316"
+                      radius={[6, 6, 0, 0]}
+                    />
 
-                    <td className="p-3 font-medium">
-                      {exam.average}%
-                    </td>
+                  </BarChart>
+                </ResponsiveContainer>
 
-                  </tr>
+              </div>
 
-                ))}
-
-              </tbody>
-
-            </table>
+            </div>
 
           </div>
 
-        )}
+          {/* USER STATISTICS */}
 
-      </div>
+          <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
 
-      {/* PARTICIPATION DETAILS */}
+            <h2 className="text-lg font-semibold text-slate-800">
+              User Statistics
+            </h2>
 
-      <div className="mb-8 rounded-xl bg-white p-6 shadow-sm">
+            <p className="mt-1 text-sm text-slate-500">
+              Breakdown of registered users
+            </p>
 
-        <h2 className="mb-2 text-xl font-bold text-gray-800">
-          Participation Details
-        </h2>
+            <div className="mt-6 space-y-5">
 
-        <p className="mb-6 text-sm text-gray-500">
-          Number of students who completed each exam
-        </p>
+              {/* STUDENTS */}
 
-        {participation.length === 0 ? (
-
-          <div className="py-10 text-center text-gray-500">
-            No participation data available yet.
-          </div>
-
-        ) : (
-
-          <div className="space-y-5">
-
-            {participation.map((item) => (
-
-              <div key={item.exam}>
+              <div>
 
                 <div className="mb-2 flex justify-between">
 
-                  <span className="font-medium">
-                    {item.exam}
+                  <span className="text-sm text-slate-600">
+                    Students
                   </span>
 
-                  <span className="text-gray-500">
-                    {item.participants} participants
+                  <span className="text-sm font-semibold text-slate-800">
+                    {stats.totalStudents}
                   </span>
 
                 </div>
 
-                <div className="h-3 w-full rounded-full bg-gray-200">
+                <div className="h-2 rounded-full bg-slate-200">
 
                   <div
-                    className="h-3 rounded-full bg-blue-600"
+                    className="h-2 rounded-full bg-blue-600"
                     style={{
-                      width: `${Math.min(
-                        item.participants * 10,
-                        100
-                      )}%`,
+                      width: `${
+                        stats.totalUsers > 0
+                          ? (stats.totalStudents /
+                              stats.totalUsers) *
+                            100
+                          : 0
+                      }%`,
                     }}
                   />
 
@@ -727,94 +427,413 @@ function Reports() {
 
               </div>
 
-            ))}
+              {/* FACULTY */}
+
+              <div>
+
+                <div className="mb-2 flex justify-between">
+
+                  <span className="text-sm text-slate-600">
+                    Faculty
+                  </span>
+
+                  <span className="text-sm font-semibold text-slate-800">
+                    {stats.totalFaculty}
+                  </span>
+
+                </div>
+
+                <div className="h-2 rounded-full bg-slate-200">
+
+                  <div
+                    className="h-2 rounded-full bg-purple-600"
+                    style={{
+                      width: `${
+                        stats.totalUsers > 0
+                          ? (stats.totalFaculty /
+                              stats.totalUsers) *
+                            100
+                          : 0
+                      }%`,
+                    }}
+                  />
+
+                </div>
+
+              </div>
+
+              {/* ADMINS */}
+
+              <div>
+
+                <div className="mb-2 flex justify-between">
+
+                  <span className="text-sm text-slate-600">
+                    Admins
+                  </span>
+
+                  <span className="text-sm font-semibold text-slate-800">
+                    {stats.totalAdmins}
+                  </span>
+
+                </div>
+
+                <div className="h-2 rounded-full bg-slate-200">
+
+                  <div
+                    className="h-2 rounded-full bg-green-500"
+                    style={{
+                      width: `${
+                        stats.totalUsers > 0
+                          ? (stats.totalAdmins /
+                              stats.totalUsers) *
+                            100
+                          : 0
+                      }%`,
+                    }}
+                  />
+
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
-        )}
+          {/* RESULT STATISTICS */}
 
-      </div>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
-      {/* RECENT USERS */}
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
-      <div className="rounded-xl bg-white p-6 shadow-sm">
+              <p className="text-sm text-slate-500">
+                Students Appeared
+              </p>
 
-        <h2 className="mb-2 text-xl font-bold text-gray-800">
-          Recent Users
-        </h2>
+              <h3 className="mt-2 text-3xl font-bold text-slate-800">
+                {stats.studentsAppeared}
+              </h3>
 
-        <p className="mb-6 text-sm text-gray-500">
-          Recently registered users
-        </p>
+            </div>
 
-        {users.recentUsers.length === 0 ? (
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
-          <p className="text-gray-500">
-            No users available.
-          </p>
+              <p className="text-sm text-slate-500">
+                Passed
+              </p>
 
-        ) : (
+              <h3 className="mt-2 text-3xl font-bold text-green-600">
+                {stats.passed}
+              </h3>
 
-          <div className="overflow-x-auto">
+            </div>
 
-            <table className="w-full text-left">
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
-              <thead>
+              <p className="text-sm text-slate-500">
+                Failed
+              </p>
 
-                <tr className="border-b">
+              <h3 className="mt-2 text-3xl font-bold text-red-500">
+                {stats.failed}
+              </h3>
 
-                  <th className="p-3">
-                    Name
-                  </th>
+            </div>
 
-                  <th className="p-3">
-                    Email
-                  </th>
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
-                  <th className="p-3">
-                    Role
-                  </th>
+              <p className="text-sm text-slate-500">
+                Completed Exams
+              </p>
 
-                </tr>
+              <h3 className="mt-2 text-3xl font-bold text-blue-600">
+                {stats.completedExams}
+              </h3>
 
-              </thead>
+            </div>
 
-              <tbody>
+          </div>
 
-                {users.recentUsers.map((user) => (
+          {/* EXAM MONITORING */}
 
-                  <tr
-                    key={String(user.id)}
-                    className="border-b hover:bg-gray-50"
-                  >
+          <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
 
-                    <td className="p-3 font-medium">
-                      {user.name}
-                    </td>
+            <h2 className="text-lg font-semibold text-slate-800">
+              Exam Monitoring
+            </h2>
 
-                    <td className="p-3 text-gray-600">
-                      {user.email}
-                    </td>
+            <p className="mt-1 text-sm text-slate-500">
+              Overview of all exams and their performance.
+            </p>
 
-                    <td className="p-3">
+            <div className="mt-6 overflow-x-auto">
 
-                      <span className="rounded-full bg-gray-100 px-3 py-1 text-sm">
-                        {user.role}
-                      </span>
+              <table className="w-full min-w-[700px]">
 
-                    </td>
+                <thead className="bg-slate-50">
+
+                  <tr>
+
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-500">
+                      Exam
+                    </th>
+
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-500">
+                      Status
+                    </th>
+
+                    <th className="px-4 py-3 text-center text-xs font-semibold uppercase text-slate-500">
+                      Participants
+                    </th>
+
+                    <th className="px-4 py-3 text-center text-xs font-semibold uppercase text-slate-500">
+                      Average
+                    </th>
 
                   </tr>
 
-                ))}
+                </thead>
 
-              </tbody>
+                <tbody className="divide-y divide-slate-100">
 
-            </table>
+                  {exams.examData.length > 0 ? (
+
+                    exams.examData.map((exam) => (
+
+                      <tr
+                        key={exam.id}
+                        className="hover:bg-slate-50"
+                      >
+
+                        <td className="px-4 py-4 text-sm font-medium text-slate-800">
+                          {exam.title}
+                        </td>
+
+                        <td className="px-4 py-4">
+
+                          <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                            {exam.status}
+                          </span>
+
+                        </td>
+
+                        <td className="px-4 py-4 text-center text-sm text-slate-600">
+                          {exam.participants}
+                        </td>
+
+                        <td className="px-4 py-4 text-center text-sm font-semibold text-slate-800">
+                          {exam.average}%
+                        </td>
+
+                      </tr>
+
+                    ))
+
+                  ) : (
+
+                    <tr>
+
+                      <td
+                        colSpan="4"
+                        className="px-4 py-8 text-center text-sm text-slate-500"
+                      >
+                        No exam data available.
+                      </td>
+
+                    </tr>
+
+                  )}
+
+                </tbody>
+
+              </table>
+
+            </div>
 
           </div>
 
-        )}
+          {/* PARTICIPATION DETAILS */}
+
+          <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+
+            <h2 className="text-lg font-semibold text-slate-800">
+              Participation Details
+            </h2>
+
+            <p className="mt-1 text-sm text-slate-500">
+              Number of students who participated in each exam.
+            </p>
+
+            <div className="mt-6 overflow-x-auto">
+
+              <table className="w-full min-w-[500px]">
+
+                <thead className="bg-slate-50">
+
+                  <tr>
+
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-500">
+                      Exam
+                    </th>
+
+                    <th className="px-4 py-3 text-center text-xs font-semibold uppercase text-slate-500">
+                      Participants
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody className="divide-y divide-slate-100">
+
+                  {participation.length > 0 ? (
+
+                    participation.map((item, index) => (
+
+                      <tr
+                        key={index}
+                        className="hover:bg-slate-50"
+                      >
+
+                        <td className="px-4 py-4 text-sm font-medium text-slate-800">
+                          {item.exam}
+                        </td>
+
+                        <td className="px-4 py-4 text-center text-sm text-slate-600">
+                          {item.participants}
+                        </td>
+
+                      </tr>
+
+                    ))
+
+                  ) : (
+
+                    <tr>
+
+                      <td
+                        colSpan="2"
+                        className="px-4 py-8 text-center text-sm text-slate-500"
+                      >
+                        No participation data available.
+                      </td>
+
+                    </tr>
+
+                  )}
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+          {/* RECENT USERS */}
+
+          <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+
+            <h2 className="text-lg font-semibold text-slate-800">
+              Recent Users
+            </h2>
+
+            <p className="mt-1 text-sm text-slate-500">
+              Recently registered users.
+            </p>
+
+            <div className="mt-6 overflow-x-auto">
+
+              <table className="w-full min-w-[650px]">
+
+                <thead className="bg-slate-50">
+
+                  <tr>
+
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-500">
+                      Name
+                    </th>
+
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-500">
+                      Email
+                    </th>
+
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-500">
+                      Role
+                    </th>
+
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-500">
+                      Registered
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody className="divide-y divide-slate-100">
+
+                  {users.recentUsers.length > 0 ? (
+
+                    users.recentUsers.map((user) => (
+
+                      <tr
+                        key={user.id}
+                        className="hover:bg-slate-50"
+                      >
+
+                        <td className="px-4 py-4 text-sm font-semibold text-slate-800">
+                          {user.name}
+                        </td>
+
+                        <td className="px-4 py-4 text-sm text-slate-600">
+                          {user.email}
+                        </td>
+
+                        <td className="px-4 py-4">
+
+                          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold capitalize text-slate-700">
+                            {user.role}
+                          </span>
+
+                        </td>
+
+                        <td className="px-4 py-4 text-sm text-slate-500">
+                          {user.createdAt
+                            ? new Date(
+                                user.createdAt
+                              ).toLocaleString()
+                            : "Recently"}
+                        </td>
+
+                      </tr>
+
+                    ))
+
+                  ) : (
+
+                    <tr>
+
+                      <td
+                        colSpan="4"
+                        className="px-4 py-8 text-center text-sm text-slate-500"
+                      >
+                        No recent users available.
+                      </td>
+
+                    </tr>
+
+                  )}
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </main>
 
       </div>
 

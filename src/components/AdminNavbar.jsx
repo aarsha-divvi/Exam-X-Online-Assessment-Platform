@@ -1,54 +1,70 @@
-import { Bell, Search, UserCircle } from "lucide-react";
+import { Bell, UserCircle } from "lucide-react";
 
 function AdminNavbar() {
+  const user = JSON.parse(
+    localStorage.getItem("user") || "null"
+  );
+
+  const adminName = user?.name || "Admin";
+
   return (
     <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-slate-200 bg-white px-4 shadow-sm md:px-8">
-      {/* Left */}
+
+      {/* LEFT */}
+
       <div>
         <h2 className="text-lg font-semibold text-slate-800">
           Admin Panel
         </h2>
 
-        <p className="hidden text-sm text-slate-500 sm:block">
-          Manage your ExamX platform
+        <p className="hidden text-xs text-slate-500 sm:block">
+          ExamX Online Assessment Platform
         </p>
       </div>
 
-      {/* Right */}
+      {/* RIGHT */}
+
       <div className="flex items-center gap-4">
-        {/* Search */}
-        <div className="hidden items-center rounded-lg bg-slate-100 px-3 py-2 md:flex">
-          <Search size={18} className="text-slate-400" />
 
-          <input
-            type="text"
-            placeholder="Search..."
-            className="ml-2 w-32 bg-transparent text-sm outline-none lg:w-48"
-          />
-        </div>
+        {/* NOTIFICATION */}
 
-        {/* Notification */}
-        <button className="relative rounded-full p-2 text-slate-600 hover:bg-slate-100">
-          <Bell size={21} />
+        <button
+          className="relative rounded-lg p-2.5 text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
+          title="Notifications"
+        >
+          <Bell size={20} />
 
-          <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500"></span>
+          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500" />
         </button>
 
-        {/* Admin */}
-        <div className="flex items-center gap-2">
-          <UserCircle size={35} className="text-blue-600" />
+        {/* DIVIDER */}
 
-          <div className="hidden sm:block">
+        <div className="hidden h-8 w-px bg-slate-200 sm:block" />
+
+        {/* ADMIN PROFILE */}
+
+        <div className="flex items-center gap-3">
+
+          <div className="hidden text-right sm:block">
+
             <p className="text-sm font-semibold text-slate-800">
-              Admin
+              {adminName}
             </p>
 
             <p className="text-xs text-slate-500">
               Administrator
             </p>
+
           </div>
+
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+            <UserCircle size={25} />
+          </div>
+
         </div>
+
       </div>
+
     </header>
   );
 }

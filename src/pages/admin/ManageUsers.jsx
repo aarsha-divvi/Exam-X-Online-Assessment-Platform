@@ -256,10 +256,10 @@ function ManageUsers() {
     <div className="min-h-screen bg-slate-100">
       <AdminSidebar />
 
-      <div className="ml-64">
+      <div className="ml-0 md:ml-64">
         <AdminNavbar />
 
-        <main className="p-4 md:p-8">
+        <main className="p-4 sm:p-6 lg:p-8">
 
           <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div>

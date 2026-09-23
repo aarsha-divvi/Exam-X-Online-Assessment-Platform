@@ -81,12 +81,16 @@ function AdminDashboard() {
 
   const studentPercentage =
     totalUsers > 0
-      ? Math.round((stats.totalStudents / totalUsers) * 100)
+      ? Math.round(
+          (stats.totalStudents / totalUsers) * 100
+        )
       : 0;
 
   const facultyPercentage =
     totalUsers > 0
-      ? Math.round((stats.totalFaculty / totalUsers) * 100)
+      ? Math.round(
+          (stats.totalFaculty / totalUsers) * 100
+        )
       : 0;
 
   const publishedExams =
@@ -124,17 +128,17 @@ function AdminDashboard() {
 
       <AdminSidebar />
 
-      <div className="ml-64">
+      <div className="ml-0 md:ml-64">
 
         <AdminNavbar />
 
-        <main className="p-4 md:p-8">
+        <main className="p-4 sm:p-6 lg:p-8">
 
           {/* PAGE HEADING */}
 
           <div className="mb-8">
 
-            <h1 className="text-2xl font-bold text-slate-800">
+            <h1 className="text-2xl font-bold text-slate-800 sm:text-3xl">
               Dashboard
             </h1>
 
@@ -178,11 +182,9 @@ function AdminDashboard() {
 
           </div>
 
-          {/* MAIN CONTENT */}
+          {/* RECENT ACTIVITY + PLATFORM SUMMARY */}
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
-
-            {/* RECENT ACTIVITY */}
 
             <div className="rounded-xl border border-slate-200 bg-white shadow-sm lg:col-span-2">
 
@@ -212,10 +214,10 @@ function AdminDashboard() {
 
                     <div
                       key={index}
-                      className="flex items-center gap-4 p-5 hover:bg-slate-50"
+                      className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center"
                     >
 
-                      <div className="rounded-full bg-blue-100 p-3 text-blue-600">
+                      <div className="w-fit rounded-full bg-blue-100 p-3 text-blue-600">
                         {activity.icon}
                       </div>
 
@@ -255,8 +257,6 @@ function AdminDashboard() {
 
               <div className="mt-6 space-y-5">
 
-                {/* STUDENTS */}
-
                 <div>
 
                   <div className="mb-2 flex justify-between">
@@ -283,8 +283,6 @@ function AdminDashboard() {
                   </div>
 
                 </div>
-
-                {/* FACULTY */}
 
                 <div>
 
@@ -313,8 +311,6 @@ function AdminDashboard() {
 
                 </div>
 
-                {/* PUBLISHED EXAMS */}
-
                 <div>
 
                   <div className="mb-2 flex justify-between">
@@ -341,8 +337,6 @@ function AdminDashboard() {
                   </div>
 
                 </div>
-
-                {/* ACTIVE EXAMS */}
 
                 <div>
 
@@ -397,7 +391,7 @@ function AdminDashboard() {
 
               <button
                 onClick={() => navigate("/admin/reports")}
-                className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+                className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 sm:w-auto"
               >
                 View Full Reports
               </button>
@@ -409,8 +403,6 @@ function AdminDashboard() {
           {/* MONITORING SUMMARY */}
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-
-            {/* STUDENTS APPEARED */}
 
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
@@ -424,8 +416,6 @@ function AdminDashboard() {
 
             </div>
 
-            {/* AVERAGE SCORE */}
-
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
               <p className="text-sm text-slate-500">
@@ -438,8 +428,6 @@ function AdminDashboard() {
 
             </div>
 
-            {/* PASSED */}
-
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
               <p className="text-sm text-slate-500">
@@ -451,8 +439,6 @@ function AdminDashboard() {
               </h3>
 
             </div>
-
-            {/* FAILED */}
 
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
 
