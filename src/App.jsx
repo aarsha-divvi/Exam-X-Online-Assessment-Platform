@@ -1,14 +1,12 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import StudentLogin from "./pages/student/StudentLogin";
-import StudentRegister from "./pages/student/StudentRegister";
-import StudentDashboard from "./pages/student/StudentDashboard";
-import AvailableExams from "./pages/student/AvailableExams";
-=======
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// ==================== STUDENT ====================
+import StudentLogin from "./pages/Student/Studentlogin";
+import StudentRegister from "./pages/Student/Studentregister";
+import StudentDashboard from "./pages/Student/Studentdashboard";
+import AvailableExams from "./pages/Student/Availableexams";
 
+// ==================== FACULTY ====================
 import FacultyDashboard from "./pages/FacultyDashboard";
 import QuestionBank from "./pages/QuestionBank";
 import CreateExam from "./pages/CreateExam";
@@ -18,18 +16,24 @@ import FacultyResultDetails from "./pages/FacultyResultDetails";
 import ExamManagement from "./pages/ExamManagement";
 import ExamDetails from "./pages/ExamDetails";
 import AIQuestionGenerator from "./pages/AIQuestionGenerator";
->>>>>>> origin/member3-faculty
+
+// ==================== ADMIN ====================
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ManageUsers from "./pages/admin/ManageUsers";
+import Reports from "./pages/admin/Reports";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-<<<<<<< HEAD
+
+        {/* ==================== DEFAULT ==================== */}
         <Route
           path="/"
           element={<Navigate to="/student/login" replace />}
         />
 
+        {/* ==================== STUDENT ==================== */}
         <Route
           path="/student/login"
           element={<StudentLogin />}
@@ -50,142 +54,77 @@ function App() {
           element={<AvailableExams />}
         />
 
-        <Route
-          path="*"
-          element={<Navigate to="/student/login" replace />}
-        />
-=======
-
-        {/* Faculty Dashboard */}
-        <Route
-          path="/"
-          element={<FacultyDashboard />}
-        />
-
+        {/* ==================== FACULTY ==================== */}
         <Route
           path="/faculty"
           element={<FacultyDashboard />}
         />
 
-        {/* Faculty Question Bank */}
         <Route
           path="/question-bank"
           element={<QuestionBank />}
         />
 
-        {/* AI Question Generator */}
         <Route
           path="/ai-question-generator"
           element={<AIQuestionGenerator />}
         />
 
-        {/* Create Exam */}
         <Route
           path="/create-exam"
           element={<CreateExam />}
         />
 
-        {/* Schedule Exam */}
         <Route
           path="/schedule-exam"
           element={<ScheduleExam />}
         />
 
-        {/* Faculty Results */}
         <Route
           path="/faculty-results"
           element={<FacultyResults />}
         />
 
-        {/* Faculty Result Details */}
         <Route
           path="/faculty-results/student/:studentId/exam/:examId"
           element={<FacultyResultDetails />}
         />
 
-        {/* Exam Management */}
         <Route
           path="/exam-management"
           element={<ExamManagement />}
         />
 
-        {/* Exam Details */}
         <Route
           path="/exam-details/:id"
           element={<ExamDetails />}
         />
 
->>>>>>> origin/member3-faculty
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
-=======
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-
-import Login from "./pages/auth/Login";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import ManageUsers from "./pages/admin/ManageUsers";
-import Reports from "./pages/admin/Reports";
-
-function AdminProtectedRoute({ children }) {
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-
-  if (!token || !user || user.role !== "admin") {
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
-}
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-
+        {/* ==================== ADMIN ==================== */}
         <Route
-          path="/"
-          element={<Navigate to="/login" replace />}
-        />
-
-        <Route
-          path="/admin/dashboard"
-          element={
-            <AdminProtectedRoute>
-              <AdminDashboard />
-            </AdminProtectedRoute>
-          }
+          path="/admin"
+          element={<AdminDashboard />}
         />
 
         <Route
           path="/admin/users"
-          element={
-            <AdminProtectedRoute>
-              <ManageUsers />
-            </AdminProtectedRoute>
-          }
+          element={<ManageUsers />}
         />
 
         <Route
           path="/admin/reports"
-          element={
-            <AdminProtectedRoute>
-              <Reports />
-            </AdminProtectedRoute>
-          }
+          element={<Reports />}
         />
 
+        {/* ==================== UNKNOWN URL ==================== */}
         <Route
           path="*"
-          element={<Navigate to="/login" replace />}
+          element={<Navigate to="/student/login" replace />}
         />
+
       </Routes>
     </BrowserRouter>
   );
 }
 
->>>>>>> origin/Hansika
 export default App;
