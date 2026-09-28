@@ -10,7 +10,8 @@ const examSchema = new mongoose.Schema(
 
     description: {
       type: String,
-      default: "",
+      required: true,
+      trim: true,
     },
 
     duration: {
@@ -19,12 +20,11 @@ const examSchema = new mongoose.Schema(
       min: 1,
     },
 
-    questions: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Question",
-      },
-    ],
+    numberOfQuestions: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -32,20 +32,34 @@ const examSchema = new mongoose.Schema(
       required: true,
     },
 
+    // Questions included in this exam
+    questions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question",
+      },
+    ],
+
+    // Scheduling details
+    scheduledDate: {
+      type: String,
+      default: "",
+    },
+
     startTime: {
-      type: Date,
-      required: true,
+      type: String,
+      default: "",
     },
 
     endTime: {
-      type: Date,
-      required: true,
+      type: String,
+      default: "",
     },
 
-    status: {
+    scheduleStatus: {
       type: String,
-      enum: ["DRAFT", "SCHEDULED", "PUBLISHED", "COMPLETED"],
-      default: "DRAFT",
+      enum: ["Not Scheduled", "Scheduled", "Published"],
+      default: "Not Scheduled",
     },
   },
   {

@@ -1,0 +1,92 @@
+.create-exam {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.create-exam-header {
+  background: white;
+  padding: 25px 40px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.create-exam-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.create-exam-header p {
+  color: #6b7280;
+}
+
+.create-exam-content {
+  padding: 35px 40px;
+}
+
+.exam-form {
+  max-width: 800px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.exam-form label {
+  display: block;
+  margin: 15px 0 8px;
+  font-weight: 600;
+}
+
+.exam-form input,
+.exam-form textarea {
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 14px;
+}
+
+.exam-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.exam-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.exam-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.create-btn,
+.cancel-btn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.create-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+}
+
+@media (max-width: 700px) {
+  .exam-row {
+    grid-template-columns: 1fr;
+  }
+
+  .create-exam-content {
+    padding: 20px;
+  }
+}

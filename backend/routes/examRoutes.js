@@ -1,53 +1,42 @@
 const express = require("express");
 
+const router = express.Router();
+
 const {
   createExam,
   getExams,
   getExamById,
   updateExam,
   deleteExam,
+  scheduleExam,
+  publishExam,
+  addQuestionsToExam,
 } = require("../controllers/examController");
 
-const {
-  protect,
-  authorizeRoles,
-} = require("../middleware/authMiddleware");
 
-const router = express.Router();
+// Create exam
+router.post("/", createExam);
 
-router.post(
-  "/",
-  protect,
-  authorizeRoles("faculty"),
-  createExam
-);
+// Get all exams
+router.get("/", getExams);
 
-router.get(
-  "/",
-  protect,
-  authorizeRoles("student", "faculty", "admin"),
-  getExams
-);
+// Get one exam
+router.get("/:id", getExamById);
 
-router.get(
-  "/:id",
-  protect,
-  authorizeRoles("student", "faculty", "admin"),
-  getExamById
-);
+// Update exam
+router.put("/:id", updateExam);
 
-router.put(
-  "/:id",
-  protect,
-  authorizeRoles("faculty"),
-  updateExam
-);
+// Delete exam
+router.delete("/:id", deleteExam);
 
-router.delete(
-  "/:id",
-  protect,
-  authorizeRoles("faculty"),
-  deleteExam
-);
+// Schedule exam
+router.put("/:id/schedule", scheduleExam);
+
+// Publish exam
+router.put("/:id/publish", publishExam);
+
+// Add/update questions in exam
+router.put("/:id/questions", addQuestionsToExam);
+
 
 module.exports = router;

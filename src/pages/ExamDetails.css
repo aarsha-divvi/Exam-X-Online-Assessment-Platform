@@ -1,0 +1,136 @@
+.exam-details {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.exam-details-header {
+  background: white;
+  padding: 25px 35px;
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exam-details-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.exam-details-header p {
+  margin-top: 6px;
+  color: #6b7280;
+}
+
+.exam-details-content {
+  padding: 30px 35px;
+}
+
+.details-card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.details-card h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.details-grid strong,
+.description strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #374151;
+}
+
+.details-grid p,
+.description p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.description {
+  margin-top: 25px;
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.question-card {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+}
+
+.question-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.question-card p {
+  margin-bottom: 12px;
+}
+
+.question-card span {
+  display: inline-block;
+  margin-right: 20px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.error-message {
+  padding: 12px;
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 800px) {
+  .exam-details-header {
+    padding: 20px;
+  }
+
+  .exam-details-content {
+    padding: 20px;
+  }
+
+  .details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exam-details-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}

@@ -14,29 +14,42 @@ const resultSchema = new mongoose.Schema(
       required: true,
     },
 
-    submission: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Submission",
-      required: true,
-      unique: true,
-    },
-
     totalQuestions: {
       type: Number,
+      required: true,
+      min: 0,
+    },
+
+    attemptedQuestions: {
+      type: Number,
       default: 0,
+      min: 0,
     },
 
     correctAnswers: {
       type: Number,
       default: 0,
+      min: 0,
     },
 
     wrongAnswers: {
       type: Number,
       default: 0,
+      min: 0,
     },
 
-    score: {
+    unansweredQuestions: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
+    marks: {
+      type: Number,
+      default: 0,
+    },
+
+    totalMarks: {
       type: Number,
       default: 0,
     },
@@ -46,13 +59,7 @@ const resultSchema = new mongoose.Schema(
       default: 0,
     },
 
-    status: {
-      type: String,
-      enum: ["COMPLETED"],
-      default: "COMPLETED",
-    },
-
-    evaluatedAt: {
+    submittedAt: {
       type: Date,
       default: Date.now,
     },

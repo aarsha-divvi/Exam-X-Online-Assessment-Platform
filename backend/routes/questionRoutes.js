@@ -8,46 +8,21 @@ const {
   deleteQuestion,
 } = require("../controllers/questionController");
 
-const {
-  protect,
-  authorizeRoles,
-} = require("../middleware/authMiddleware");
-
 const router = express.Router();
 
-router.post(
-  "/",
-  protect,
-  authorizeRoles("faculty"),
-  createQuestion
-);
+// Create question
+router.post("/", createQuestion);
 
-router.get(
-  "/",
-  protect,
-  authorizeRoles("faculty", "admin"),
-  getQuestions
-);
+// Get all questions
+router.get("/", getQuestions);
 
-router.get(
-  "/:id",
-  protect,
-  authorizeRoles("faculty", "admin"),
-  getQuestionById
-);
+// Get question by ID
+router.get("/:id", getQuestionById);
 
-router.put(
-  "/:id",
-  protect,
-  authorizeRoles("faculty"),
-  updateQuestion
-);
+// Update question
+router.put("/:id", updateQuestion);
 
-router.delete(
-  "/:id",
-  protect,
-  authorizeRoles("faculty"),
-  deleteQuestion
-);
+// Delete question
+router.delete("/:id", deleteQuestion);
 
 module.exports = router;

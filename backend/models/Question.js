@@ -10,8 +10,8 @@ const questionSchema = new mongoose.Schema(
 
     type: {
       type: String,
-      enum: ["MCQ", "CODING"],
-      default: "MCQ",
+      enum: ["MCQ", "Descriptive", "Coding"],
+      required: true,
     },
 
     options: {
@@ -27,7 +27,7 @@ const questionSchema = new mongoose.Schema(
     difficulty: {
       type: String,
       enum: ["Easy", "Medium", "Hard"],
-      default: "Medium",
+      required: true,
     },
 
     topic: {
