@@ -1,12 +1,23 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+// Landing
 
-// ==================== STUDENT ====================
+// Authentication
+import RoleLogin from "./pages/RoleLogin";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Student
 import StudentLogin from "./pages/Student/Studentlogin";
 import StudentRegister from "./pages/Student/Studentregister";
 import StudentDashboard from "./pages/Student/Studentdashboard";
 import AvailableExams from "./pages/Student/Availableexams";
 
-// ==================== FACULTY ====================
+// Faculty
 import FacultyDashboard from "./pages/FacultyDashboard";
 import QuestionBank from "./pages/QuestionBank";
 import CreateExam from "./pages/CreateExam";
@@ -17,27 +28,52 @@ import ExamManagement from "./pages/ExamManagement";
 import ExamDetails from "./pages/ExamDetails";
 import AIQuestionGenerator from "./pages/AIQuestionGenerator";
 
-// ==================== ADMIN ====================
+// Admin
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageUsers from "./pages/admin/ManageUsers";
 import Reports from "./pages/admin/Reports";
 
+function RoleSelection() {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "20px",
+      }}
+    >
+      <h1>Exam-X Online Assessment Platform</h1>
+      <p>Select your role</p>
+
+      <button onClick={() => navigate("/student/login")}>
+        Student Login
+      </button>
+
+      <button onClick={() => navigate("/faculty/login")}>
+        Faculty Login
+      </button>
+
+      <button onClick={() => navigate("/admin/login")}>
+        Admin Login
+      </button>
+    </div>
+  );
+}
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* ==================== DEFAULT ==================== */}
-        <Route
-          path="/"
-          element={<Navigate to="/student/login" replace />}
-        />
+        {/* Landing */}
+        <Route path="/" element={<RoleSelection />} />
 
-        {/* ==================== STUDENT ==================== */}
-        <Route
-          path="/student/login"
-          element={<StudentLogin />}
-        />
+        {/* Student's existing login */}
+        <Route path="/student/login" element={<StudentLogin />} />
 
         <Route
           path="/student/register"
@@ -46,80 +82,152 @@ function App() {
 
         <Route
           path="/student/dashboard"
-          element={<StudentDashboard />}
+          element={
+            <ProtectedRoute allowedRoles={["student"]}>
+              <StudentDashboard />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/student/exams"
-          element={<AvailableExams />}
+          element={
+            <ProtectedRoute allowedRoles={["student"]}>
+              <AvailableExams />
+            </ProtectedRoute>
+          }
         />
 
-        {/* ==================== FACULTY ==================== */}
+        {/* Faculty Login */}
+        <Route
+          path="/faculty/login"
+          element={
+            <RoleLogin />
+          }
+        />
+
+        {/* Faculty */}
         <Route
           path="/faculty"
-          element={<FacultyDashboard />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <FacultyDashboard />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/question-bank"
-          element={<QuestionBank />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <QuestionBank />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/ai-question-generator"
-          element={<AIQuestionGenerator />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <AIQuestionGenerator />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/create-exam"
-          element={<CreateExam />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <CreateExam />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/schedule-exam"
-          element={<ScheduleExam />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <ScheduleExam />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/faculty-results"
-          element={<FacultyResults />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <FacultyResults />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/faculty-results/student/:studentId/exam/:examId"
-          element={<FacultyResultDetails />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <FacultyResultDetails />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/exam-management"
-          element={<ExamManagement />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <ExamManagement />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/exam-details/:id"
-          element={<ExamDetails />}
+          element={
+            <ProtectedRoute allowedRoles={["faculty"]}>
+              <ExamDetails />
+            </ProtectedRoute>
+          }
         />
 
-        {/* ==================== ADMIN ==================== */}
+        {/* Admin Login */}
+        <Route
+          path="/admin/login"
+          element={
+            <RoleLogin />
+          }
+        />
+
+        {/* Admin */}
         <Route
           path="/admin"
-          element={<AdminDashboard />}
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/admin/users"
-          element={<ManageUsers />}
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <ManageUsers />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/admin/reports"
-          element={<Reports />}
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Reports />
+            </ProtectedRoute>
+          }
         />
 
-        {/* ==================== UNKNOWN URL ==================== */}
+        {/* Unknown URL */}
         <Route
           path="*"
-          element={<Navigate to="/student/login" replace />}
+          element={<Navigate to="/" replace />}
         />
 
       </Routes>
