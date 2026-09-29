@@ -1,6 +1,7 @@
 import StudentSidebar from "../../components/StudentSidebar";
 import StudentNavbar from "../../components/StudentNavbar";
 import ExamCard from "../../components/ExamCard";
+import { useNavigate } from "react-router-dom";
 import {
   BookOpen,
   CheckCircle,
@@ -9,6 +10,16 @@ import {
 } from "lucide-react";
 
 function StudentDashboard() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+
+    navigate("/", { replace: true });
+  };
+
   const exams = [
     {
       id: 1,
@@ -41,12 +52,13 @@ function StudentDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <StudentSidebar />
+      <StudentSidebar onLogout={handleLogout} />
 
       <div className="md:ml-64">
         <StudentNavbar />
 
         <main className="p-4 md:p-8">
+          {/* Page heading */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-800">
               Student Dashboard
@@ -57,6 +69,7 @@ function StudentDashboard() {
             </p>
           </div>
 
+          {/* Statistics */}
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-2xl bg-white p-6 shadow-sm">
               <BookOpen className="text-blue-600" size={28} />
@@ -107,6 +120,7 @@ function StudentDashboard() {
             </div>
           </div>
 
+          {/* Upcoming exams */}
           <section className="mt-10">
             <div className="mb-5 flex items-center justify-between">
               <div>

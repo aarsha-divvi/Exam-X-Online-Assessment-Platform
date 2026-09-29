@@ -8,7 +8,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 
-function StudentSidebar() {
+function StudentSidebar({ onLogout }) {
   const menuItems = [
     {
       name: "Dashboard",
@@ -71,13 +71,14 @@ function StudentSidebar() {
       </nav>
 
       <div className="absolute bottom-0 w-full border-t border-slate-700 p-4">
-        <button
-          onClick={() => alert("Logout functionality will be connected later.")}
-          className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm text-slate-300 hover:bg-red-600 hover:text-white"
-        >
-          <LogOut size={20} />
-          Logout
-        </button>
+       <button
+  type="button"
+  onClick={onLogout}
+  className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm text-slate-300 hover:bg-red-600 hover:text-white"
+>
+  <LogOut size={20} />
+  Logout
+</button>
       </div>
     </aside>
   );
