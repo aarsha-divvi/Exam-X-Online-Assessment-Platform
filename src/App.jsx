@@ -99,12 +99,7 @@ function App() {
         />
 
         {/* Faculty Login */}
-        <Route
-          path="/faculty/login"
-          element={
-            <RoleLogin />
-          }
-        />
+        <Route path="/faculty/login" element={<RoleLogin />} />
 
         {/* Faculty */}
         <Route
@@ -142,7 +137,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route path="/admin/login" element={<RoleLogin />} />
         <Route
           path="/schedule-exam"
           element={

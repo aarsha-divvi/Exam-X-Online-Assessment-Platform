@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./FacultyDashboard.css";
 
@@ -13,7 +14,15 @@ function FacultyDashboard() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  localStorage.removeItem("accessToken");
+
+  navigate("/faculty/login", { replace: true });
+};
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
@@ -159,13 +168,9 @@ function FacultyDashboard() {
         </div>
 
         <div className="sidebar-bottom">
-          <button
-            className="sidebar-logout"
-            type="button"
-          >
-            <span>↪</span>
-            Logout
-          </button>
+          <button onClick={handleLogout}>
+  Logout
+</button>
         </div>
       </aside>
 
