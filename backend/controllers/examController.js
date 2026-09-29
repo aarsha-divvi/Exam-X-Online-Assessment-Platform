@@ -1,23 +1,12 @@
 const Exam = require("../models/Exam");
 
-<<<<<<< HEAD
-=======
 // Create a new exam
->>>>>>> origin/member3-faculty
 const createExam = async (req, res) => {
   try {
     const {
       title,
       description,
       duration,
-<<<<<<< HEAD
-      questions,
-      startTime,
-      endTime,
-      status,
-    } = req.body;
-
-=======
       numberOfQuestions,
       createdBy,
       questions,
@@ -29,29 +18,10 @@ const createExam = async (req, res) => {
       });
     }
 
->>>>>>> origin/member3-faculty
     const exam = await Exam.create({
       title,
       description,
       duration,
-<<<<<<< HEAD
-      questions,
-      startTime,
-      endTime,
-      status,
-      createdBy: req.user.id,
-    });
-
-    res.status(201).json({
-      success: true,
-      message: "Exam created successfully",
-      exam,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-=======
       numberOfQuestions,
       createdBy,
       questions: questions || [],
@@ -64,28 +34,10 @@ const createExam = async (req, res) => {
     res.status(500).json({
       message: "Failed to create exam",
       error: error.message,
->>>>>>> origin/member3-faculty
     });
   }
 };
 
-<<<<<<< HEAD
-const getExams = async (req, res) => {
-  try {
-    const exams = await Exam.find()
-      .populate("questions")
-      .populate("createdBy", "name email")
-      .sort({ createdAt: -1 });
-
-    res.status(200).json({
-      success: true,
-      exams,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-=======
 
 // Get all exams
 const getExams = async (req, res) => {
@@ -102,22 +54,10 @@ const getExams = async (req, res) => {
     res.status(500).json({
       message: "Failed to fetch exams",
       error: error.message,
->>>>>>> origin/member3-faculty
     });
   }
 };
 
-<<<<<<< HEAD
-const getExamById = async (req, res) => {
-  try {
-    const exam = await Exam.findById(req.params.id)
-      .populate("questions")
-      .populate("createdBy", "name email");
-
-    if (!exam) {
-      return res.status(404).json({
-        success: false,
-=======
 
 // Get one exam
 const getExamById = async (req, res) => {
@@ -130,21 +70,10 @@ const getExamById = async (req, res) => {
 
     if (!exam) {
       return res.status(404).json({
->>>>>>> origin/member3-faculty
         message: "Exam not found",
       });
     }
 
-<<<<<<< HEAD
-    res.status(200).json({
-      success: true,
-      exam,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-=======
     res.status(200).json(exam);
   } catch (error) {
     console.error("Get exam error:", error);
@@ -152,24 +81,10 @@ const getExamById = async (req, res) => {
     res.status(500).json({
       message: "Failed to fetch exam",
       error: error.message,
->>>>>>> origin/member3-faculty
     });
   }
 };
 
-<<<<<<< HEAD
-const updateExam = async (req, res) => {
-  try {
-    const exam = await Exam.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-
-    if (!exam) {
-      return res.status(404).json({
-        success: false,
-=======
 
 // Update exam
 const updateExam = async (req, res) => {
@@ -188,22 +103,10 @@ const updateExam = async (req, res) => {
 
     if (!exam) {
       return res.status(404).json({
->>>>>>> origin/member3-faculty
         message: "Exam not found",
       });
     }
 
-<<<<<<< HEAD
-    res.status(200).json({
-      success: true,
-      message: "Exam updated successfully",
-      exam,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-=======
     if (title !== undefined) exam.title = title;
     if (description !== undefined) exam.description = description;
     if (duration !== undefined) exam.duration = duration;
@@ -227,20 +130,10 @@ const updateExam = async (req, res) => {
     res.status(500).json({
       message: "Failed to update exam",
       error: error.message,
->>>>>>> origin/member3-faculty
     });
   }
 };
 
-<<<<<<< HEAD
-const deleteExam = async (req, res) => {
-  try {
-    const exam = await Exam.findByIdAndDelete(req.params.id);
-
-    if (!exam) {
-      return res.status(404).json({
-        success: false,
-=======
 
 // Delete exam
 const deleteExam = async (req, res) => {
@@ -251,21 +144,10 @@ const deleteExam = async (req, res) => {
 
     if (!exam) {
       return res.status(404).json({
->>>>>>> origin/member3-faculty
         message: "Exam not found",
       });
     }
 
-<<<<<<< HEAD
-    res.status(200).json({
-      success: true,
-      message: "Exam deleted successfully",
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-=======
     await Exam.findByIdAndDelete(id);
 
     res.status(200).json({
@@ -277,13 +159,10 @@ const deleteExam = async (req, res) => {
     res.status(500).json({
       message: "Failed to delete exam",
       error: error.message,
->>>>>>> origin/member3-faculty
     });
   }
 };
 
-<<<<<<< HEAD
-=======
 
 // Schedule an exam
 const scheduleExam = async (req, res) => {
@@ -411,17 +290,13 @@ const addQuestionsToExam = async (req, res) => {
 };
 
 
->>>>>>> origin/member3-faculty
 module.exports = {
   createExam,
   getExams,
   getExamById,
   updateExam,
   deleteExam,
-<<<<<<< HEAD
-=======
   scheduleExam,
   publishExam,
   addQuestionsToExam,
->>>>>>> origin/member3-faculty
 };
