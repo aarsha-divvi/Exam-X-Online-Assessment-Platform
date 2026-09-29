@@ -6,7 +6,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 // Landing
-
+import "./App.css";
 // Authentication
 import RoleLogin from "./pages/RoleLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -36,31 +36,76 @@ import Reports from "./pages/admin/Reports";
 function RoleSelection() {
   const navigate = useNavigate();
 
+  const roles = [
+    {
+      title: "Student",
+      description:
+        "Take exams, solve coding questions, and track your results.",
+      icon: "🎓",
+      path: "/student/login",
+      button: "Continue as Student",
+    },
+    {
+      title: "Faculty",
+      description:
+        "Create exams, manage questions, schedule assessments, and view results.",
+      icon: "👨‍🏫",
+      path: "/faculty/login",
+      button: "Continue as Faculty",
+    },
+    {
+      title: "Admin",
+      description:
+        "Manage users, monitor exams, and oversee the entire Exam-X platform.",
+      icon: "🛡️",
+      path: "/admin/login",
+      button: "Continue as Admin",
+    },
+  ];
+
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "20px",
-      }}
-    >
-      <h1>Exam-X Online Assessment Platform</h1>
-      <p>Select your role</p>
+    <div className="role-selection-page">
+      <div className="role-selection-overlay">
+        <div className="role-selection-header">
+          <div className="examx-logo">
+            <span className="examx-logo-icon">X</span>
+            <span className="examx-logo-text">Exam-X</span>
+          </div>
 
-      <button onClick={() => navigate("/student/login")}>
-        Student Login
-      </button>
+          <h1>Online Assessment Platform</h1>
 
-      <button onClick={() => navigate("/faculty/login")}>
-        Faculty Login
-      </button>
+          <p>
+            A secure and smart platform for online examinations,
+            evaluation, and academic management.
+          </p>
+        </div>
 
-      <button onClick={() => navigate("/admin/login")}>
-        Admin Login
-      </button>
+        <div className="role-selection-cards">
+          {roles.map((role) => (
+            <div className="role-card" key={role.title}>
+              <div className="role-icon">{role.icon}</div>
+
+              <h2>{role.title}</h2>
+
+              <p>{role.description}</p>
+
+              <button
+                onClick={() => navigate(role.path)}
+                className="role-card-button"
+              >
+                {role.button}
+                <span>→</span>
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="role-selection-footer">
+          <span>Exam-X Online Assessment Platform</span>
+          <span>•</span>
+          <span>Secure • Fast • Reliable</span>
+        </div>
+      </div>
     </div>
   );
 }
