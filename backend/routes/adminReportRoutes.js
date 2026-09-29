@@ -12,7 +12,7 @@ const {
 const router = express.Router();
 
 router.get(
-  "/",
+  "/reports",
   protect,
   authorizeRoles("admin"),
   getAdminReports
