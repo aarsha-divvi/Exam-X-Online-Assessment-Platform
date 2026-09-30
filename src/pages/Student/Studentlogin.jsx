@@ -15,34 +15,42 @@ function StudentLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    setError("");
+
     if (!email || !password) {
       setError("Please enter email and password.");
       return;
     }
 
-    setError("");
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const response = await fetch(
+        `${API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Login failed");
+        throw new Error(
+          data.message || "Login failed"
+        );
       }
 
       if (!data.user || !data.token) {
-        throw new Error("Invalid login response from server.");
+        throw new Error(
+          "Invalid login response from server."
+        );
       }
 
       if (data.user.role !== "student") {
@@ -51,13 +59,29 @@ function StudentLogin() {
         );
       }
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem(
+        "token",
+        data.token
+      );
 
-      navigate("/student/dashboard", { replace: true });
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+      );
+
+      navigate("/student/dashboard", {
+        replace: true,
+      });
     } catch (err) {
-      console.error("Student login error:", err);
-      setError(err.message || "Unable to connect to backend.");
+      console.error(
+        "Student login error:",
+        err
+      );
+
+      setError(
+        err.message ||
+          "Unable to connect to backend."
+      );
     } finally {
       setLoading(false);
     }
@@ -76,13 +100,14 @@ function StudentLogin() {
           </h1>
 
           <p className="mt-4 text-blue-100">
-            Take online assessments, track your performance and improve your
-            skills.
+            Take online assessments, track your
+            performance and improve your skills.
           </p>
         </div>
 
         {/* RIGHT */}
         <div className="p-8 sm:p-10">
+
           <h2 className="text-3xl font-bold text-slate-800">
             Student Login
           </h2>
@@ -97,21 +122,29 @@ function StudentLogin() {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="mt-8 space-y-5">
+          <form
+            onSubmit={handleLogin}
+            className="mt-8 space-y-5"
+          >
 
-            {/* Email */}
+            {/* EMAIL */}
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">
                 Email
               </label>
 
               <div className="flex items-center rounded-lg border border-slate-300 px-3">
-                <Mail size={18} className="text-slate-400" />
+                <Mail
+                  size={18}
+                  className="text-slate-400"
+                />
 
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
                   placeholder="Enter your email"
                   className="w-full px-3 py-3 outline-none"
                   required
@@ -119,19 +152,24 @@ function StudentLogin() {
               </div>
             </div>
 
-            {/* Password */}
+            {/* PASSWORD */}
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">
                 Password
               </label>
 
               <div className="flex items-center rounded-lg border border-slate-300 px-3">
-                <Lock size={18} className="text-slate-400" />
+                <Lock
+                  size={18}
+                  className="text-slate-400"
+                />
 
                 <input
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) =>
+                    setPassword(e.target.value)
+                  }
                   placeholder="Enter your password"
                   className="w-full px-3 py-3 outline-none"
                   required
@@ -139,11 +177,16 @@ function StudentLogin() {
               </div>
             </div>
 
+            {/* FORGOT PASSWORD */}
             <div className="text-right">
               <button
                 type="button"
+                onClick={() =>
+                  navigate(
+                    "/student/forgot-password"
+                  )
+                }
                 className="text-sm font-medium text-blue-600 hover:underline"
-                onClick={() => setError("Password reset is not implemented yet.")}
               >
                 Forgot Password?
               </button>
@@ -154,8 +197,11 @@ function StudentLogin() {
               disabled={loading}
               className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? "Logging in..." : "Login"}
+              {loading
+                ? "Logging in..."
+                : "Login"}
             </button>
+
           </form>
 
           <p className="mt-6 text-center text-sm text-slate-500">
@@ -167,6 +213,7 @@ function StudentLogin() {
               Register
             </Link>
           </p>
+
         </div>
       </div>
     </div>

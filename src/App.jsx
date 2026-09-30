@@ -6,6 +6,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 // Landing
+import ForgotPassword from "./pages/Student/ForgotPassword";
 import "./App.css";
 // Authentication
 import RoleLogin from "./pages/RoleLogin";
@@ -124,7 +125,10 @@ function App() {
           path="/student/register"
           element={<StudentRegister />}
         />
-
+        <Route
+  path="/student/forgot-password"
+  element={<ForgotPassword />}
+/>
         <Route
           path="/student/dashboard"
           element={
